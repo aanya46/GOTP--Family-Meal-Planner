@@ -5,8 +5,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-GEMINI_API_KEY = "AIzaSyDcaGNWa5kPsNkLiziIijPc__3VI4-DCW4"
-GEMINI_MODEL_NAME = "gemini-1.5-flash-8b"
+GEMINI_API_KEY = "" # GENERATE YOUR OWN GEMINI API KEY AND ADD IT
+GEMINI_MODEL_NAME = "gemini-1.5-flash-8b" 
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL_NAME}:generateContent?key={GEMINI_API_KEY}"
 
 @app.route('/generate-diet-plan', methods=['POST'])
