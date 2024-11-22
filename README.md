@@ -1,6 +1,3 @@
-Here’s your updated set of instructions with details on generating and adding a Gemini API key to `app.py` before running the application:  
-
----
 
 # Diet Plan & Recipe Generator Web App  
 This web app generates personalized diet plans based on user preferences and health conditions. It also allows users to retrieve detailed recipes for dishes.  
