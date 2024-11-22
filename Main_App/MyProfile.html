@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="MyProfile.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DynaPuff&display=swap">
+</head>
+<body>
+    <header>
+        <iframe src="bar.html" style="width:100%; height:200px; border:none; margin-left: 10px;"></iframe>
+    </header>
+    <img src="Images/logo.png" alt="GotP Logo" class="logo-image" />
+
+    <div class="profile-section">
+        <div class="profile-header">
+            <h2>My Profile</h2>
+            <button class="edit-button">Edit</button>
+        </div>
+        <div class="profile-content">
+            <div class="profile-picture">
+                <img src="Images/dude.png" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <input type="text" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <div class="name-inputs">
+                    <input type="text" placeholder="First Name">
+                    <input type="text" placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="meal-preferences">
+        <h1>So How would you Like your Meal?</h1>
+    </div>
+    <p><br></p>
+    <div class="preferences-content">
+        <div class="email-inputs">
+            <input type="text" placeholder="Dietary Restrictions">
+            <input type="number" placeholder="How many people do you live with?">
+            <input type="text" placeholder="Email 1">
+            <input type="text" placeholder="Email 2">
+            <input type="text" placeholder="Email 3">
+            <input type="text" placeholder="Email 4">
+            <input type="text" placeholder="Medical Records (if any)">
+        </div>
+        </div>
+        <button class="update-button">Update</button>
+
+    <!-- <div class="footer">
+        <p>"Good food isn’t just about feeding the body; it’s about nourishing the soul. Let us take care of the planning, so you can savor every bite."</p>
+        <button class="home-button">Back to Home</button>
+    </div> -->
+
+    <!-- <footer class="bottom-bar">
+        <span>Plan. Prep. Savor.</span>
+        <div class="footer-links">
+            <a href="#faqs">FAQs</a>
+            <a href="#contact-us">Contact Us</a>
+            <a href="#my-profile">My Profile</a>
+        </div>
+    </footer> -->
+
+    <!-- <section class="cta-section">
+        <div class="cta-content">
+          <p class="cta-text">"Good food isn't just about feeding the body; it's about nourishing the soul. Let us take care of the planning, so you can savor every bite."</p>
+          <button class="cta-button">Sign Up</button>
+        </div>
+      </section>
+    
+      <footer class="footer">
+        <h2 class="footer-slogan">Plan. Prep. Savor.</h2>
+        <nav class="footer-links">
+          <a href="#faqs" class="footer-link">FAQs</a>
+          <a href="#contact" class="footer-link">Contact Us</a>
+          <a href="#profile" class="footer-link">My Profile</a>
+        </nav>
+      </footer> -->
+
+    <script>
+        document.getElementById('edit-button').addEventListener('click', function() {
+            let inputs = document.querySelectorAll('.profile-info input');
+            let buttons = document.querySelectorAll('.profile-section button');
+            
+            inputs.forEach(input => {
+                input.disabled = !input.disabled; // Toggle disabled state
+            });
+    
+            buttons.forEach(button => {
+                if (button.id !== 'edit-button') {
+                    button.disabled = !button.disabled; // Toggle disabled state, exclude edit button
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

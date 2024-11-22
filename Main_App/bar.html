@@ -1,0 +1,81 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="bar.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Bar</title>
+</head>
+<body>
+    <nav class="top-bar">
+        <div class="logo">
+            GotP!
+        </div>
+        <ul class="nav-links">
+            <li><a href="finalhomescreen.html#how-it-works" class="navigate">How it Works?</a></li>
+            <li><a href="finalhomescreen.html#all-recipes" class="navigate">All Recipes</a></li>
+            <li><a href="finalhomescreen.html#meal-planning" class="navigate">Meal Planning</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="signup1.html" class="navigate sign-up-button">Sign up!</a>
+            <a href="login.html" class="navigate login-link">Already a member?<br>Login</a>
+        </div>
+    </nav>
+    <script src="script.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="bar.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Bar</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-bar">
+        <div class="logo">GotP!</div>
+        <ul class="nav-links">
+            <li><a href="finalhomescreen.html#how-it-works" class="navigate">How it Works?</a></li>
+            <li><a onclick="window.location.href='allrecipes.html'" class="navigate">All Recipes</a></li>
+            <li><a href="mealplanning.html" class="navigate">Meal Planning</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="signup1.html" class="navigate sign-up-button">Sign up!</a>
+            <a href="login.html" class="navigate login-link">Already a member?<br>Login</a>
+        </div>
+    </nav>
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.navigate').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+
+                    fetch(href)
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+
+                            // Replace the entire document's HTML content
+                            document.open();
+                            document.write(doc.documentElement.outerHTML);
+                            document.close();
+                        })
+                        .catch(error => console.error('Error fetching content:', error));
+                });
+            });
+        });
+    </script> -->
+</body>
+</html>

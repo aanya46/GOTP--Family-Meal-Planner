@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eat This Much</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="gotplogo.jpg" alt="Eat This Much Logo">
+                <span>GUARDIANS OF THE PANTRY!</span>
+            </div>
+        
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <h1>Meal so smooth, they plan <span class="highlight">you.</span></h1>
+        <p>Guardians of the Pantry creates personalized meal plans based on your health conditions, and goals. Reach your diet and nutritional targets with our calorie calculator, weekly meal plans, and more.</p>
+        <h2>Create your meal plan in seconds</h2>
+        <img src="yum.jpg" alt="Airplane with Vegetables" class="illustration">
+    </section>
+
+    <!-- Region Selection and Meal Plan Generation -->
+    <section class="meal-plan-section">
+        <h2>Enter Your Preferences</h2>
+
+        <!-- Region Selection Form -->
+        <h3>Select Your Region:</h3>
+        <form id="region-form">
+            <label><input type="checkbox" value="Canadian"> Canadian</label><br>
+            <label><input type="checkbox" value="US"> US</label><br>
+            <label><input type="checkbox" value="Mexican"> Mexican</label><br>
+            <label><input type="checkbox" value="South American"> South American</label><br>
+            <label><input type="checkbox" value="West African"> West African</label><br>
+            <label><input type="checkbox" value="Italian"> Italian</label><br>
+            <label><input type="checkbox" value="French"> French</label><br>
+            <label><input type="checkbox" value="UK"> UK</label><br>
+            <label><input type="checkbox" value="Spanish and Portuguese"> Spanish and Portuguese</label><br>
+            <label><input type="checkbox" value="Irish"> Irish</label><br>
+            <label><input type="checkbox" value="Eastern European"> Eastern European</label><br>
+            <label><input type="checkbox" value="Greek"> Greek</label><br>
+            <label><input type="checkbox" value="Middle Eastern"> Middle Eastern</label><br>
+            <label><input type="checkbox" value="Chinese and Mongolian"> Chinese and Mongolian</label><br>
+            <label><input type="checkbox" value="Indian Subcontinent"> Indian Subcontinent</label><br>
+            <label><input type="checkbox" value="Southeast Asian"> Southeast Asian</label><br>
+            <label><input type="checkbox" value="Australian"> Australian</label><br><br>
+
+            <!-- Button to trigger the recipe fetching -->
+            <button type="button" onclick="submitRegions()">Submit Regions</button>
+        </form>
+
+        <!-- Display Recipe Titles here -->
+        <div id="recipe-output"></div>
+
+        <!-- Visible div to display the recipe list -->
+        <h3>Recipe List:</h3>
+        <div id="recipe-list"></div>
+
+        <!-- Meal Plan Preferences -->
+        <h3>Meal Plan Preferences</h3>
+        <div class="calorie-input-section">
+            <p>I want to eat <input type="number" id="calories" value="1800"> calories</p>
+            <p>in 
+                <select id="meals">
+                    <option value="3" selected>3</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select> 
+                meals
+            </p>
+
+            <p>Select health conditions:</p>
+            <div id="health-conditions">
+                <label><input type="checkbox" value="Diabetes"> Diabetes</label>
+                <label><input type="checkbox" value="Hypertension"> Hypertension</label>
+                <label><input type="checkbox" value="Obesity"> Obesity</label>
+                <label><input type="checkbox" value="Heart Disease"> Heart Disease</label>
+                <label><input type="checkbox" value="PCOS"> PCOS</label>
+            </div>
+
+            <ul class="macros">
+                <li><span class="dot carbs"></span> At least 90g Carbs</li>
+                <li><span class="dot fat"></span> At least 40g Fat</li>
+                <li><span class="dot protein"></span> At least 90g Protein</li>
+            </ul>
+
+            <button class="generate-btn" onclick="generateDietPlan()">Generate</button>
+        </div>
+
+        <!-- Display generated diet plan here -->
+        <div id="meal-plan-output"></div>
+    </section>
+
+    
+
+    <script>
+        // URL for your Flask API
+        const flaskApiUrl = 'http://localhost:8888/generate-diet-plan';
+
+        async function submitRegions() {
+            const regionElements = document.querySelectorAll('#region-form input:checked');
+            const selectedRegions = Array.from(regionElements).map(el => el.value);
+
+            if (selectedRegions.length === 0) {
+                alert("Please select at least one region.");
+                return;
+            }
+
+            // Clear previous content
+            document.getElementById("recipe-output").innerHTML = "Fetching recipes...";
+
+            // Initialize an empty array to hold all selected recipes
+            let allRecipes = [];
+
+            // Loop through selected regions
+            for (let region of selectedRegions) {
+                const url = `https://cosylab.iiitd.edu.in/recipe-search/regions?searchText=${encodeURIComponent(region)}&pageSize=100`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    const recipes = data.payload.data;
+                    allRecipes = allRecipes.concat(recipes); // Add this region's recipes to the total list
+
+                    data.payload.data.forEach(recipe => {
+                    // Add recipe title as key and an object with image and link as value
+                    allRecipes[recipe.Recipe_title] = {
+                        image: recipe.Recipe_image,
+                        link: recipe.Recipe_link
+                    };
+                });
+
+                    // Call the function to display the list of recipes and create the visible recipe list
+                    createRecipeList(recipes);
+
+                    displayRecipes(allRecipes);
+                } catch (error) {
+                    console.error(`Error fetching recipes for ${region}:`, error);
+                    //document.getElementById("recipe-output").innerHTML = "Failed to fetch recipes.";
+                }
+            }
+
+            // After fetching all recipes, update the global recipe list
+            //const recipeTitles = allRecipes.map(recipe => recipe.Recipe_title);
+            //document.getElementById("recipe-list").innerText = recipeTitles.join(", ");
+            //console.log("Recipe list: ", recipeTitles);
+        }
+
+        // function displayRecipes(recipes) {
+        //     const recipeListDiv = document.getElementById("recipe-list");
+        //     recipeListDiv.innerHTML = ""; // Clear previous content
+
+        //     const recipeGrid = document.createElement("div");
+        //     recipeGrid.className = "recipe-grid"; // Add a class for styling
+
+        //     for (let title in recipes) {
+        //         const { image, link } = recipes[title];
+
+        //         const recipeItem = document.createElement("div");
+        //         recipeItem.className = "recipe-item";
+
+        //         // Create an anchor element wrapping the image
+        //         const recipeLink = document.createElement("a");
+        //         recipeLink.href = link;
+        //         recipeLink.target = "_blank";
+
+        //         const recipeImage = document.createElement("img");
+        //         recipeImage.src = image;
+        //         recipeImage.alt = title;
+
+        //         recipeLink.appendChild(recipeImage);
+
+        //         // Create a title element
+        //         const recipeTitle = document.createElement("p");
+        //         recipeTitle.innerText = title;
+
+        //         // Append image and title to the recipe item
+        //         recipeItem.appendChild(recipeLink);
+        //         recipeItem.appendChild(recipeTitle);
+
+        //         // Append recipe item to the grid
+        //         recipeGrid.appendChild(recipeItem);
+        //     }
+
+        //     recipeListDiv.appendChild(recipeGrid);
+        //}
+
+        function createRecipeList(recipes) {
+            const recipeList = recipes.map(recipe => recipe.Recipe_title).join(", ");
+            document.getElementById("recipe-list").innerText = recipeList; // Display the recipe list in the visible div
+            console.log("Recipe list: " + recipeList); // Log the recipe list to the console
+        }
+
+        async function generateDietPlan() {
+            const calories = document.getElementById("calories").value;
+            const meals = document.getElementById("meals").value;
+
+            const healthConditionElements = document.querySelectorAll('#health-conditions input:checked');
+            const healthConditions = Array.from(healthConditionElements).map(el => el.value);
+
+            if (healthConditions.length === 0) {
+                alert("Please select at least one health condition.");
+                return;
+            }
+
+            // Retrieve the recipe list from the visible div or use the global recipe list
+            const recipeListText = document.getElementById("recipe-list").innerText;
+            const recipes = recipeListText.split(", ").filter(recipe => recipe !== "");
+
+            if (recipes.length === 0) {
+                alert("No recipes selected.");
+                return;
+            }
+
+            const requestData = {
+                calories: parseInt(calories, 10),
+                meals: parseInt(meals, 10),
+                healthConditions: healthConditions,
+                recipes: recipes // Passing the selected recipes
+            };
+
+            try {
+                const response = await fetch(flaskApiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Error generating diet plan");
+                }
+
+                const dietPlanData = await response.json();
+                //console.log("plan:",JSON.stringify(dietPlan, null, 2));
+                //if (dietPlanData.dietPlan) {
+            //console.log("Received Diet Plan:", dietPlanData.dietPlan);
+        //}
+                displayDietPlan(dietPlanData.dietPlan);
+            } catch (error) {
+                console.error("Error generating diet plan:", error);
+            }
+        }
+
+        async function displayDietPlan(dietPlan) {
+    const mealPlanOutput = document.getElementById("meal-plan-output");
+
+    // Clear any existing content
+    mealPlanOutput.innerHTML = '';
+
+    // Check if dietPlan exists and is not empty
+    if (!dietPlan || dietPlan.trim() === '') {
+        mealPlanOutput.innerHTML = '<p>No diet plan available.</p>';
+        return;
+    }
+
+    // Split the dietPlan by "*Day" to process each day
+    const days = dietPlan.split('*Day').filter(day => day.trim() !== '');
+
+    let htmlContent = '<h3>Your Custom Diet Plan:</h3>';
+
+    for (const [index, day] of days.entries()) {
+        const meals = day.split('\n').filter(meal => meal.trim() !== ''); // Split meals by newline
+
+        htmlContent += `<div class="day-plan">`;
+        if (index != 0) {
+            htmlContent += `<h4>Day ${index}</h4>`;
+        }
+
+        for (const meal of meals) {
+            if (meal.toLowerCase().includes('breakfast')) {
+                const mealDetail = await fetchRecipeDetails(meal.replace('Breakfast:', '').trim());
+                htmlContent += `<p><strong>Breakfast:</strong> ${mealDetail}</p>`;
+            } else if (meal.toLowerCase().includes('lunch')) {
+                const mealDetail = await fetchRecipeDetails(meal.replace('Lunch:', '').trim());
+                htmlContent += `<p><strong>Lunch:</strong> ${mealDetail}</p>`;
+            } else if (meal.toLowerCase().includes('dinner')) {
+                const mealDetail = await fetchRecipeDetails(meal.replace('Dinner:', '').trim());
+                htmlContent += `<p><strong>Dinner:</strong> ${mealDetail}</p>`;
+            }
+        }
+
+        htmlContent += `</div>`; // End of day-plan div
+    }
+
+    mealPlanOutput.innerHTML = htmlContent;
+}
+
+async function fetchRecipeDetails(recipeName) {
+    try {
+        // Format the API endpoint
+        const url = `https://cosylab.iiitd.edu.in/recipe-search/recipe?pageSize=10&searchText=${encodeURIComponent(recipeName)}`;
+
+        // Fetch recipe details
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch recipe details');
+        }
+
+        const data = await response.json();
+        const recipes = data.payload.data;
+
+        if (recipes && recipes.length > 0) {
+            const recipe = recipes[0]; // Get the first recipe as an example
+
+            // Return recipe title, image, and link with title on the next line
+            return `
+                <div>
+                    <img src="${recipe.img_url}" alt="${recipe.Recipe_title}">
+                    <br>
+                    <h4>${recipe.Recipe_title.replace(/<em class="hlt1">|<\/em>/g, '')}</h4>  <!-- Removing the HTML tags -->
+                    <br>
+                    <a href="${recipe.url}" target="_blank">View Recipe</a>
+                </div>
+            `;
+        } else {
+            return 'No detailed recipe found.';
+        }
+    } catch (error) {
+        console.error(`Error fetching recipe details for ${recipeName}:`, error);
+        return 'Error fetching recipe details.';
+    }
+}
+
+
+
+
+
+    </script>
+
+</body>
+</html>

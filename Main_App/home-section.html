@@ -1,0 +1,207 @@
+<style>
+    .home-screen { background-color: #fff; display: flex; padding-bottom: 35px; flex-direction: column; overflow: hidden; align-items: center; }
+    .header { background-color: #702516; align-self: stretch; display: flex; width: 100%; flex-direction: column; align-items: flex-end; font-family: Comme, sans-serif; font-weight: 700; justify-content: center; padding: 16px 70px; }
+    @media (max-width: 991px) { .header { max-width: 100%; padding: 0 20px; } }
+    .header-content { display: flex; width: 100%; max-width: 1194px; align-items: flex-start; gap: 40px 90px; }
+    @media (max-width: 991px) { .header-content { max-width: 100%; } }
+    .logo { color: #fff; letter-spacing: 1.92px; flex-grow: 1; font: 400 48px DynaPuff, sans-serif; }
+    @media (max-width: 991px) { .logo { font-size: 40px; } }
+    .nav-links { align-self: stretch; display: flex; gap: 40px 51px; font-size: 19px; color: #fff; text-align: center; letter-spacing: 0.75px; flex-wrap: wrap; margin: auto 0; }
+    @media (max-width: 991px) { .nav-links { max-width: 100%; } }
+    .nav-link { flex-basis: auto; }
+    .auth-buttons { display: flex; margin-top: 11px; gap: 26px; }
+    .signup-btn { border-radius: 16px; background-color: #fff; font-size: 19px; color: #f58549; text-align: center; letter-spacing: 0.75px; padding: 10px 34px 18px; }
+    @media (max-width: 991px) { .signup-btn { padding: 0 20px; } }
+    .login-link { color: #fff; font-size: 14px; letter-spacing: 0.55px; margin: auto 0; }
+    .hero-section { align-self: flex-start; z-index: 10; margin-top: -56px; width: 100%; max-width: 1511px; }
+    @media (max-width: 991px) { .hero-section { max-width: 100%; } }
+    .hero-content { gap: 20px; display: flex; }
+    @media (max-width: 991px) { .hero-content { flex-direction: column; align-items: stretch; gap: 0; } }
+    .hero-text { display: flex; flex-direction: column; line-height: normal; width: 54%; margin-left: 0; }
+    @media (max-width: 991px) { .hero-text { width: 100%; } }
+    .hero-text-content { display: flex; flex-direction: column; font-family: Comme, sans-serif; color: #fff; font-weight: 700; }
+    @media (max-width: 991px) { .hero-text-content { max-width: 100%; margin-top: 21px; } }
+    .hero-image { aspect-ratio: 1.01; object-fit: contain; object-position: center; width: 229px; border-radius: 0; margin-left: 27px; max-width: 100%; }
+    @media (max-width: 991px) { .hero-image { margin-left: 10px; } }
+    .hero-title { border-radius: 0 30px 30px 0; background-color: #f58549; margin-top: 26px; letter-spacing: 2.56px; padding: 31px 70px; font: 64px DynaPuff, sans-serif; }
+    @media (max-width: 991px) { .hero-title { max-width: 100%; font-size: 40px; margin-right: 2px; padding: 0 20px; } }
+    .hero-subtitle { color: #702516; font-size: 36px; font-weight: 500; letter-spacing: 1.44px; align-self: flex-end; margin-top: 36px; width: 642px; }
+    @media (max-width: 991px) { .hero-subtitle { max-width: 100%; } }
+    .cta-button { border-radius: 26px; background-color: #f58549; margin-top: 45px; width: 529px; max-width: 100%; font-size: 32px; text-align: center; letter-spacing: 1.26px; padding: 25px 70px; }
+    @media (max-width: 991px) { .cta-button { margin-top: 40px; padding: 0 20px; } }
+    .hero-image-wrapper { display: flex; flex-direction: column; line-height: normal; width: 46%; margin-left: 20px; }
+    @media (max-width: 991px) { .hero-image-wrapper { width: 100%; } }
+    .hero-image-large { aspect-ratio: 1.12; object-fit: contain; object-position: center; width: 100%; margin-top: 124px; flex-grow: 1; }
+    @media (max-width: 991px) { .hero-image-large { max-width: 100%; margin-top: 40px; } }
+    .about-section { width: 100%; background-color: #f58549; align-self: stretch; margin-top: 97px; color: #fff; text-align: center; letter-spacing: 2.56px; padding: 16px 70px 31px; font: 700 64px DynaPuff, sans-serif; }
+    @media (max-width: 991px) { .about-section { max-width: 100%; font-size: 40px; margin-top: 40px; padding: 0 20px; } }
+    .about-content { display: flex; margin-top: 64px; width: 1039px; max-width: 100%; flex-direction: column; color: #702516; font: 400 30px DynaPuff, sans-serif; }
+    @media (max-width: 991px) { .about-content { margin-top: 40px; } }
+    .about-description { font-family: Comme, sans-serif; line-height: 45px; align-self: flex-end; }
+    @media (max-width: 991px) { .about-description { max-width: 100%; } }
+    .how-it-works-title { color: #f58549; font-size: 64px; font-weight: 700; letter-spacing: 2.56px; text-align: center; align-self: center; margin: 111px 0 0 17px; }
+    @media (max-width: 991px) { .how-it-works-title { max-width: 100%; margin-top: 40px; font-size: 40px; } }
+    .step-title { color: #f58549; align-self: flex-start; margin-top: 101px; }
+    @media (max-width: 991px) { .step-title { margin-top: 40px; } }
+    .step-description { font-family: Comme, sans-serif; line-height: 45px; margin-top: 21px; }
+    @media (max-width: 991px) { .step-description { max-width: 100%; margin-right: 2px; } }
+    .get-started-btn { border-radius: 26px; background-color: #f58549; align-self: center; margin-top: 126px; width: 350px; max-width: 100%; font-size: 40px; color: #fff; font-weight: 700; text-align: center; letter-spacing: 1.6px; padding: 15px 44px 35px; }
+    @media (max-width: 991px) { .get-started-btn { margin-top: 40px; padding: 0 20px; } }
+    .specialty-plans-section { background-color: #f58549; align-self: stretch; margin-top: 105px; width: 100%; color: #fff; text-align: center; letter-spacing: 2.56px; padding: 62px 70px; font: 700 64px DynaPuff, sans-serif; }
+    @media (max-width: 991px) { .specialty-plans-section { max-width: 100%; font-size: 40px; margin-top: 40px; padding: 0 20px; } }
+    .specialty-plans-description { color: #702516; margin: 64px 0 0 16px; font: 400 30px/45px Comme, sans-serif; }
+    @media (max-width: 991px) { .specialty-plans-description { max-width: 100%; margin-top: 40px; } }
+    .plan-container { width: 971px; max-width: 100%; margin: 135px 0 0 18px; }
+    @media (max-width: 991px) { .plan-container { margin-top: 40px; } }
+    .plan-content { gap: 20px; display: flex; }
+    @media (max-width: 991px) { .plan-content { flex-direction: column; align-items: stretch; gap: 0; } }
+    .plan-text { display: flex; flex-direction: column; line-height: normal; width: 50%; margin-left: 0; }
+    @media (max-width: 991px) { .plan-text { width: 100%; } }
+    .plan-text-content { display: flex; flex-direction: column; align-self: stretch; align-items: flex-start; font-family: DynaPuff, sans-serif; font-weight: 700; margin: auto 0; }
+    @media (max-width: 991px) { .plan-text-content { margin-top: 40px; } }
+    .plan-title { color: #f58549; font-size: 64px; letter-spacing: 2.56px; }
+    @media (max-width: 991px) { .plan-title { font-size: 40px; } }
+    .plan-description { color: #702516; letter-spacing: 0.8px; align-self: stretch; margin-top: 42px; font: 400 20px Comme, sans-serif; }
+    @media (max-width: 991px) { .plan-description { margin-top: 40px; } }
+    .learn-more-btn { border-radius: 16px; background-color: #f58549; margin-top: 23px; font-size: 25px; color: #fff; text-align: center; letter-spacing: 0.99px; padding: 9px 31px 23px; }
+    @media (max-width: 991px) { .learn-more-btn { padding: 0 20px; } }
+    .plan-image-wrapper { display: flex; flex-direction: column; line-height: normal; width: 50%; margin-left: 20px; }
+    @media (max-width: 991px) { .plan-image-wrapper { width: 100%; } }
+    .plan-image { aspect-ratio: 0.97; object-fit: contain; object-position: center; width: 100%; flex-grow: 1; }
+    @media (max-width: 991px) { .plan-image { max-width: 100%; margin-top: 40px; } }
+    .cta-section { background-color: #f58549; align-self: stretch; display: flex; margin-top: 171px; width: 100%; flex-direction: column; align-items: center; text-align: center; justify-content: center; padding: 41px 80px; }
+    @media (max-width: 991px) { .cta-section { max-width: 100%; margin-top: 40px; padding: 0 20px; } }
+    .cta-content { display: flex; width: 801px; max-width: 100%; flex-direction: column; }
+    .cta-text { color: #fff; letter-spacing: 0.8px; font: 400 20px Comme, sans-serif; }
+    @media (max-width: 991px) { .cta-text { max-width: 100%; } }
+    .cta-button { border-radius: 16px; background-color: #fff; align-self: center; margin-top: 28px; width: 230px; max-width: 100%; color: #f58549; letter-spacing: 0.99px; padding: 9px 68px 18px; font: 700 25px DynaPuff, sans-serif; }
+    @media (max-width: 991px) { .cta-button { padding: 0 20px; } }
+    .footer { display: flex; margin-top: 95px; width: 100%; max-width: 1330px; gap: 20px; font-family: DynaPuff, sans-serif; font-weight: 700; flex-wrap: wrap; justify-content: space-between; }
+    @media (max-width: 991px) { .footer { max-width: 100%; margin-top: 40px; } }
+    .footer-logo { color: #f58549; font-size: 53px; letter-spacing: 2.1px; }
+    @media (max-width: 991px) { .footer-logo { max-width: 100%; font-size: 40px; } }
+    .footer-links { display: flex; gap: 28px; font-size: 33px; color: #702516; letter-spacing: 1.31px; flex-wrap: wrap; margin: auto 0; }
+    @media (max-width: 991px) { .footer-links { max-width: 100%; } }
+    .footer-link { flex-basis: auto; }
+    </style>
+    
+    <main class="home-screen">
+      <header class="header">
+        <div class="header-content">
+          <h1 class="logo">GotP!</h1>
+          <nav class="nav-links">
+            <a href="#how-it-works" class="nav-link">How it Works?</a>
+            <a href="#recipes" class="nav-link">All Recipes</a>
+            <a href="#meal-planning" class="nav-link">Meal Planning</a>
+          </nav>
+          <div class="auth-buttons">
+            <a href="#signup" class="signup-btn">Sign up!</a>
+            <a href="#login" class="login-link">Already a member? Login</a>
+          </div>
+        </div>
+      </header>
+    
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-text-content">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/120b46902ff38eccf4d6c5403f95a3fee70f11b3a1ee0c780e3147aba83a3de7?placeholderIfAbsent=true&apiKey=23368c62409b4bfaa91db5e34ba201f8" alt="Decorative food image" class="hero-image" />
+              <h2 class="hero-title">Plan. Prep. Savor.</h2>
+              <p class="hero-subtitle">Whether for one or a family-Discover the smarter way to eat well every day!</p>
+              <a href="#start-planning" class="cta-button">Start Meal Planning</a>
+            </div>
+          </div>
+          <div class="hero-image-wrapper">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a9eee15bfd9d8e82995cc0658eff46149648e6ff4ce7ab7f6b5d17a86550a38?placeholderIfAbsent=true&apiKey=23368c62409b4bfaa91db5e34ba201f8" alt="Happy family enjoying a meal" class="hero-image-large" />
+          </div>
+        </div>
+      </section>
+      <section class="about-section">
+        <h2>About <br /> Guardians of the Pantry</h2>
+      </section>
+    
+      <div class="about-content">
+        <p class="about-description">We provide <span style="color: #f58549;">personalized meal plans</span> for individuals and families, creating unified, health-focused meal plans that address each person's dietary needs, health conditions, and nutrition goals. This is your one-stop solution for pantry-based suggestions, ensuring a balanced diet that's easy to prepare and beneficial for all.</p>
+        <h2 class="how-it-works-title">How it works?</h2>
+        <h3 class="step-title">Set Your Goals</h3>
+        <p class="step-description">Are you looking to lose weight, gain muscle, manage a health condition, or simply eat a balanced diet? We will use this information to guide your meal choices.</p>
+        <h3 class="step-title">Input Dietary Preferences & Restrictions</h3>
+        <p class="step-description">Customize your meal plan by specifying dietary restrictions, allergies, and food preferences. Whether you're gluten-free, lactose-intolerant, or following a low-carb diet, GotP! has options for everyone.</p>
+        <h3 class="step-title">Add Family Member Profiles (optional)</h3>
+        <p class="step-description">GotP! allows you to build a meal plan for the entire family. Add profiles for each family member, our system will create unified meal suggestions that meet everyone's requirements.</p>
+        <h3 class="step-title">Choose Meal Plan Duration and Frequency</h3>
+        <p class="step-description">Select the number of days you want to plan for and the number of meals per day. Whether you're planning for a few days or the entire week, GotP! can adapt to your preferences.</p>
+        <h3 class="step-title">Pantry-Based Recommendations</h3>
+        <p class="step-description">Based on your pantry items and ingredients you already have, GotP! will suggest recipes that maximize what's on hand. Save money and reduce waste by incorporating your pantry staples into your meal plan.</p>
+        <h3 class="step-title">Review & Customize Recipes</h3>
+        <p class="step-description">Review the meal plan GotP! created for you. If you see a meal you'd like to swap, simply choose an alternative from our list of suggestions. Each recipe provides nutritional information, cooking time, and prep details.</p>
+        <h3 class="step-title">Start Cooking with Step-by-Step Guides</h3>
+        <p class="step-description">With your ingredients ready, follow our easy step-by-step recipe guides for each meal. Get cooking and enjoy delicious, nutritious meals that fit your dietary needs and goals.</p>
+        <a href="#get-started" class="get-started-btn">Get Started</a>
+      </div>
+    
+      <section class="specialty-plans-section">
+        <h2>Speciality Meal Plans</h2>
+      </section>
+    
+      <p class="specialty-plans-description"><span style="color: #f58549;">Too busy to build your own meal plan?</span> Check out our pre-made specialty plans, designed to fit a variety of lifestyles and dietary needs. Whether you're aiming for better health, managing a condition, or just need something quick and easy, we've got heart-healthy, gluten-free, keto, and plant-based options, all balanced and easy to prepare.</p>
+    
+      <div class="plan-container">
+        <div class="plan-content">
+          <div class="plan-text">
+            <div class="plan-text-content">
+              <h3 class="plan-title">Dil Se Healthy!</h3>
+              <p class="plan-description">For the heart that beats strong and the body that stays vibrant! This plan is all about keeping your ticker happy with <span style="color: #f58549;">fiber-rich, low-sodium, and wholesome meals</span> that are both delicious and good for the heart.</p>
+              <a href="#learn-more-healthy" class="learn-more-btn">Learn More</a>
+            </div>
+          </div>
+          <div class="plan-image-wrapper">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ad0ddc77f89a170e13a5663d49bc4366c2172dedaa32414077dee707c149823f?placeholderIfAbsent=true&apiKey=23368c62409b4bfaa91db5e34ba201f8" alt="Healthy meal plan example" class="plan-image" />
+          </div>
+        </div>
+      </div>
+    
+      <div class="plan-container">
+        <div class="plan-content">
+          <div class="plan-image-wrapper">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8fdce7428d16b9d30edd43aa98e5f71cd2ba82ac15bc5795887c3aa0aee498ff?placeholderIfAbsent=true&apiKey=23368c62409b4bfaa91db5e34ba201f8" alt="Gluten-free meal plan example" class="plan-image" />
+          </div>
+          <div class="plan-text">
+            <div class="plan-text-content">
+              <a href="#learn-more-gluten-free" class="learn-more-btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="plan-container">
+        <div class="plan-content">
+          <div class="plan-text">
+            <div class="plan-text-content">
+              <h3 class="plan-title">Keto Se Khatta!</h3>
+              <p class="plan-description">For those who like their meals <span style="color: #f58549;">low-carb and high-fat</span> —without compromising on taste! Keep your <span style="color: #f58549;">keto</span> game strong with these Indian-inspired dishes that are big on flavor and small on carbs.</p>
+              <a href="#learn-more-keto" class="learn-more-btn">Learn More</a>
+            </div>
+          </div>
+          <div class="plan-image-wrapper">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e8aee76c972f1f2a5102284a4fab3d1badccc6f110d03244ec086b3c0852839b?placeholderIfAbsent=true&apiKey=23368c62409b4bfaa91db5e34ba201f8" alt="Keto meal plan example" class="plan-image" />
+          </div>
+        </div>
+      </div>
+    
+      <section class="cta-section">
+        <div class="cta-content">
+          <p class="cta-text">"Good food isn't just about feeding the body; it's about nourishing the soul. Let us take care of the planning, so you can savor every bite."</p>
+          <a href="#sign-up" class="cta-button">Sign Up</a>
+        </div>
+      </section>
+    
+      <footer class="footer">
+        <h2 class="footer-logo">Plan. Prep. Savor.</h2>
+        <nav class="footer-links">
+          <a href="#faqs" class="footer-link">FAQs</a>
+          <a href="#contact" class="footer-link">Contact Us</a>
+          <a href="#profile" class="footer-link">My Profile</a>
+        </nav>
+      </footer>
+    </main>

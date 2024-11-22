@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Setup</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DynaPuff&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="signup2.css">
+    <style>
+        /* Global styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            height: 100%;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 20px;
+            margin: 0 auto;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            max-width: 100%;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .cta-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .info-note {
+            font-size: 14px;
+            color: #777;
+            text-align: left;
+        }
+
+        #dietPlanOutput {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        /* Responsive design */
+        @media (min-width: 768px) {
+            .form-container {
+                padding: 40px;
+            }
+
+            .cta-button {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="form-container">
+            <h2>Profile Setup (optional)</h2>
+            <p class="tagline">We protect your data and won't share it without your consent, except as required by law.</p>
+
+            <!-- Profile Setup Form -->
+            <form id="profile-form">
+                <div class="input-group">
+                    <label for="profile-image">Upload Profile Image</label>
+                    <input type="file" id="profile-image" accept="image/*">
+                </div>
+
+                <h2>Enter Your Preferences</h2>
+                <div class="input-group">
+                    <label for="region-input">Enter Your Preferred Region(s):</label>
+                    <input type="text" id="region-input" placeholder="Type your preferred regions (e.g., Italian, Mexican)">
+                </div>
+
+                <h2>Personal Info (optional)</h2>
+                <div class="checkbox-group">
+                    <label>Any Existing Health Conditions</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="health" value="diabetes"> Diabetes</label>
+                        <label><input type="checkbox" name="health" value="hypertension"> Hypertension</label>
+                        <label><input type="checkbox" name="health" value="obesity"> Obesity</label>
+                        <label><input type="checkbox" name="health" value="heart-disease"> Heart Disease</label>
+                        <label><input type="checkbox" name="health" value="pcos"> PCOS</label>
+                        <label><input type="checkbox" name="health" value="thyroid-disorders"> Thyroid Disorders</label>
+                        <label><input type="checkbox" name="health" value="celiac-disease"> Celiac Disease</label>
+                        <label><input type="checkbox" name="health" value="kidney-disease"> Kidney Disease</label>
+                        <label><input type="checkbox" name="health" value="cancer"> Cancer</label>
+                        <label><input type="checkbox" name="health" value="asthma"> Asthma</label>
+                        <label><input type="checkbox" name="health" value="mental-health"> Mental Health Conditions</label>
+                    </div>
+                </div>
+
+                <p class="info-note">The purpose of this section is for us to better understand your preferences, so feel free to enter as much info as you want.</p>
+                <button type="button" class="cta-button" onclick="generateDietPlan()">Finish</button>
+            </form>
+
+            <div id="dietPlanOutput"></div>
+        </div>
+    </main>
+
+    <script>
+        async function generateDietPlan() {
+            const healthConditions = Array.from(document.querySelectorAll('input[name="health"]:checked')).map(cb => cb.value);
+            const region = document.getElementById('region-input').value;
+
+            // Validation
+            if (!healthConditions.length) {
+                alert("Please select at least one health condition.");
+                return;
+            }
+            if (!region.trim()) {
+                alert("Please specify at least one preferred region.");
+                return;
+            }
+
+            const requestBody = {
+                healthConditions: healthConditions,
+                calories: 1800,
+                meals: 3,
+                recipes: [region]
+            };
+
+            const dietPlanOutput = document.getElementById('dietPlanOutput');
+            dietPlanOutput.innerHTML = "<p>Generating your diet plan...</p>";
+
+            try {
+                const response = await fetch('http://127.0.0.1:8888/generate-diet-plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(`Error: ${error.error}`);
+                    return;
+                }
+
+                const data = await response.json();
+                dietPlanOutput.innerHTML = `<h3>Your Diet Plan</h3><div>${data.dietPlan.replace(/\n/g, '<br>').replace(/\*/g, '')}</div>`;
+
+
+            } catch (error) {
+                console.error("Error generating diet plan:", error);
+                alert("An error occurred while generating the diet plan. Please try again later.");
+                dietPlanOutput.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

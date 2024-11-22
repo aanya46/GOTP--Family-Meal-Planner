@@ -1,0 +1,273 @@
+/* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: DynaPuff, sans-serif;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #7b2e1f;
+    padding: 1rem 2rem;
+    color: white;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sign-up-button {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #ff7f50;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link {
+    color: white;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.profile-section {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start (left) */
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: #f58549; /* Orange background color */
+    padding: 20px; /* Padding to create space around the text */
+    border-radius: 0 15px 15px 0; /* Rounded corners on right side, sharp on left */
+    width: 40%; /* Extend the box width */
+    margin-left: 2rem; /* Position the box from the left */
+}
+
+.profile-header h2 {
+    font-size: 1.8rem;
+    color: #fff; /* Text color to contrast the orange background */
+    font-weight: bold;
+    margin: 0; /* Remove default margin */
+}
+
+.edit-button {
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.profile-content {
+    display: flex;
+    justify-content: space-between; /* Spread content */
+    align-items: center;
+    width: 100%; /* Make it span full width */
+    padding-left: 2rem; /* Add padding to align with the header */
+}
+
+.profile-picture {
+    order: 2; /* Position profile picture to the end */
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.profile-picture img {
+    width: 450px; /* Adjust width as needed */
+    height: 450px; /* Adjust height as needed */
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    margin-left: 2rem; /* Adjust margin to position image correctly */
+    margin-top: -100px;
+}
+
+.profile-info {
+    order: 1; /* Position profile info to the start */
+    flex-grow: 1; /* Allow it to grow */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-right: 2rem; /* Add margin to the right */
+}
+
+.profile-info input {
+    display: block;
+    width: 100%; /* Adjust width to fit the container */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.name-inputs {
+    display: flex;
+    gap: 1rem;
+    width: 100%; /* Ensure inputs span full width */
+}
+
+.name-inputs input {
+    width: 100%; /* Make sure inputs are full width within the flex container */
+}
+
+.meal-preferences {
+    background-color: #ff7f50;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.meal-preferences h1 {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.preferences-content input {
+    display: block;
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.email-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.update-button {
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 1rem;
+    display: block;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer {
+    background-color: #ff7f50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.footer p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.home-button {
+    background-color: white;
+    color: #ff7f50;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bottom-bar {
+    background-color: #7b2e1f;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.bottom-bar span {
+    font-weight: bold;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.logo-image { 
+    aspect-ratio: 1.01; 
+    object-fit: contain; 
+    object-position: center; 
+    width: 200px; 
+    border-radius: 0; 
+    margin-left: 170px; 
+    max-width: 100%; 
+    margin-top: -170px;
+}
+
+@media (max-width: 991px) { 
+    .logo-image { 
+        margin-left: 10px; 
+    } 
+}
+
+.contact-header { 
+    border-radius: 0 30px 30px 0; 
+    background-color: #f58549; 
+    margin-top: 26px; 
+    width: 810px; 
+    max-width: 100%; 
+    color: #fff; 
+    letter-spacing: 2.56px; 
+    padding: 31px 70px; 
+    font: 700 64px DynaPuff, sans-serif; 
+}
+
+.cta-section { background-color: #f58549; display: flex; margin-top: 103px; width: 100%; flex-direction: column; align-items: center; text-align: center; justify-content: center; padding: 41px 80px; }
+@media (max-width: 991px) { .cta-section { max-width: 100%; margin-top: 40px; padding: 0 20px; } }
+.cta-content { display: flex; margin-left: 23px; width: 801px; max-width: 100%; flex-direction: column; }
+.cta-text { color: #fff; letter-spacing: 0.8px; font: 400 20px Comme, sans-serif; }
+@media (max-width: 991px) { .cta-text { max-width: 100%; } }
+.cta-button { border-radius: 16px; background-color: #fff; align-self: center; margin-top: 28px; width: 231px; max-width: 100%; color: #f58549; letter-spacing: 0.99px; padding: 9px 68px 18px; font: 700 25px DynaPuff, sans-serif; white-space: nowrap;}
+@media (max-width: 991px) { .cta-button { padding: 0 20px; } }
+.footer { align-self: center; display: flex; width: 100%; max-width: 1330px; gap: 20px; font-family: DynaPuff, sans-serif; font-weight: 700; flex-wrap: wrap; justify-content: space-between; margin: 95px 0 0 31px; }
+@media (max-width: 991px) { .footer { max-width: 100%; margin-top: 40px; } }
+.footer-slogan { color: #f58549; font-size: 53px; letter-spacing: 2.1px; }
+@media (max-width: 991px) { .footer-slogan { max-width: 100%; font-size: 40px; } }
+.footer-links { display: flex; gap: 28px; font-size: 33px; color: #702516; letter-spacing: 1.31px; flex-wrap: wrap; margin: auto 0; }
+@media (max-width: 991px) { .footer-links { max-width: 100%; } }
+.footer-link { flex-basis: auto; color: #702516;}
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

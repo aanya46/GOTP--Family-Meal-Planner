@@ -1,0 +1,97 @@
+body {
+    font-family: 'DynaPuff', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-image: url('Images/BackGround.png'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+.form-container h2 {
+    color: #f28c28;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #f28c28;
+    box-shadow: 0 0 5px rgba(242, 140, 40, 0.5);
+    outline: none;
+}
+
+.info-note {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+button.cta-button {
+    background-color: #f28c28;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+button.cta-button:hover {
+    background-color: #d97a1f;
+}
+
+a.login-link {
+    color: #f28c28;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a.login-link:hover {
+    color: #d97a1f;
+}

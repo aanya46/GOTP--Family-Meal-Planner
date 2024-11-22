@@ -1,0 +1,97 @@
+body {
+    font-family: 'DynaPuff', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    pointer-events: none; /* Disable all click events on the body */
+    background-image: url('Images/BackGround.png'); /* Replace 'background-image.jpg' with your actual image path */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    pointer-events: auto; /* Enable click events inside form container */
+}
+
+.form-container h2 {
+    color: #f28c28;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input, .name-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 30px; /* Rounded corners */
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.name-group {
+    display: flex;
+    gap: 10px;
+}
+
+.name-group input {
+    width: calc(50% - 10px);
+}
+
+.input-group input:focus, .name-group input:focus {
+    border-color: #f28c28;
+    box-shadow: 0 0 5px rgba(242, 140, 40, 0.5);
+    outline: none;
+}
+
+button.cta-button {
+    background-color: #f28c28;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    pointer-events: auto; /* Enable click events for buttons */
+    margin-top: 15px;
+}
+
+button.cta-button:hover {
+    background-color: #d97a1f;
+}
+
+a.login-link {
+    color: #f28c28;
+    text-decoration: none;
+    pointer-events: auto; /* Enable click events for links */
+    transition: color 0.3s ease;
+}
+
+a.login-link:hover {
+    color: #d97a1f;
+}

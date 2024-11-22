@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optional Personal Info</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DynaPuff&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="signup3.css">
+</head>
+<body>
+    <main>
+        <div class="form-container">
+            <h2>Personal Info (optional)</h2>
+            <p class="tagline">We protect your data and won't share it without your consent, except as required by law.</p>
+            <form id="optional-info-form">
+                <div class="input-group">
+                    <label for="diet">Dietary Preferences</label>
+                    <select id="diet" name="diet" onchange="toggleOtherDietField()">
+                        <option value="" disabled selected>Select your dietary preference</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="veg">Vegetarian</option>
+                        <option value="non-veg">Non-Vegetarian</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" id="other-diet" name="other-diet" placeholder="Please specify" style="display: none; margin-top: 10px;">
+                </div>
+                <div class="input-group">
+                    <label for="health">Any Existing Health Conditions</label>
+                    <div>
+                        <input type="checkbox" id="diabetes" name="health" value="diabetes">
+                        <label for="diabetes">Diabetes</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hypertension" name="health" value="hypertension">
+                        <label for="hypertension">Hypertension</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="obesity" name="health" value="obesity">
+                        <label for="obesity">Obesity</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="heart-disease" name="health" value="heart-disease">
+                        <label for="heart-disease">Heart Disease</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="pcos" name="health" value="pcos">
+                        <label for="pcos">PCOS</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="other" name="health" value="other">
+                        <label for="other">Other</label>
+                    </div>
+                    <input type="text" id="other-condition" placeholder="Please specify" style="display:none;">
+                </div>                               
+                <p class="info-note">The purpose of this section is for us to better understand your preferences, so feel free to enter as much info as you want.</p>
+                <button type="button" class="cta-button" onclick="generateDietPlan()">Finish</button>
+            </form>
+            <p>Already a User? <a href="login.html" class="login-link">Login</a></p>
+        </div>
+    </main>
+    <script>
+        // Toggle visibility for "Other" field in dietary preferences
+        function toggleOtherDietField() {
+            var diet = document.getElementById('diet');
+            var otherDiet = document.getElementById('other-diet');
+            if (diet.value === 'other') {
+                otherDiet.style.display = 'block';
+            } else {
+                otherDiet.style.display = 'none';
+            }
+        }
+
+        // Function to submit the region and fetch recipes
+        async function submitRegion() {
+            const selectedRegion = document.getElementById("location").value;
+
+            if (!selectedRegion) {
+                alert("Please select a region.");
+                return;
+            }
+
+            // Clear previous content
+            document.getElementById("recipe-output").innerHTML = "Fetching recipes...";
+
+            const url = `https://cosylab.iiitd.edu.in/recipe-search/regions?searchText=${encodeURIComponent(selectedRegion)}&pageSize=100`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                displayRecipes(selectedRegion, data.payload.data);
+                createRecipeList(data.payload.data); // Generate the recipe string list
+                window.location.href = "signup3.html";
+            } catch (error) {
+                console.error(`Error fetching recipes for ${selectedRegion}:, error`);
+                document.getElementById("recipe-output").innerHTML = "Failed to fetch recipes.";
+            }
+        }
+
+        function displayRecipes(region, recipes) {
+            const outputDiv = document.getElementById("recipe-output");
+            outputDiv.innerHTML = <h3>Recipes for ${region}:</h3>;
+
+            if (recipes && recipes.length > 0) {
+                recipes.forEach(recipe => {
+                    const recipeElement = document.createElement('div');
+                    recipeElement.innerHTML = `
+                        <h4>${recipe.Recipe_title}</h4>
+                        <p>Prep time: ${recipe.prep_time} minutes</p>
+                        <p>Cook time: ${recipe.cook_time} minutes</p>
+                        <p>Servings: ${recipe.servings}</p>
+                        <p><a href="${recipe.url}" target="_blank">View Recipe</a></p>
+                        <img src="${recipe.img_url}" alt="${recipe.Recipe_title}" width="200" />
+                    `;
+                    outputDiv.appendChild(recipeElement);
+                });
+            } else {
+                outputDiv.innerHTML += "<p>No recipes found for this region.</p>";
+            }
+        }
+
+        function createRecipeList(recipes) {
+            const recipeList = recipes.map(recipe => recipe.Recipe_title).join(", ");
+            console.log("Recipe list: " + recipeList); // Log the recipe list to the console
+        }
+
+        async function generateDietPlan() {
+            const recipeList = await submitRegion(); // Wait for the recipe list
+
+            if (!recipeList || recipeList.length === 0) {
+                alert("No recipes selected. Please ensure that the recipe list is populated.");
+                console.error("Recipe list is empty or not found.");
+                return;
+            }
+
+            const calories = document.getElementById("calories") ? document.getElementById("calories").value : "";
+            const meals = document.getElementById("meals") ? document.getElementById("meals").value : "";
+
+            const healthConditionElements = document.querySelectorAll('#health input:checked');
+            const healthConditions = Array.from(healthConditionElements).map(el => el.value);
+
+            if (healthConditions.length === 0) {
+                alert("Please select at least one health condition.");
+                return;
+            }
+
+            if (calories === "" || meals === "") {
+                alert("Please provide calories and meal information.");
+                return;
+            }
+
+            const requestData = {
+                calories: parseInt(calories, 10),
+                meals: parseInt(meals, 10),
+                healthConditions: healthConditions,
+                recipes: recipeList // Passing the selected recipes
+            };
+
+            try {
+                const response = await fetch('YOUR_FLASK_API_URL', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Error generating diet plan");
+                }
+
+                const dietPlanData = await response.json();
+                displayDietPlan(dietPlanData.dietPlan);
+            } catch (error) {
+                console.error("Error generating diet plan:", error);
+            }
+        }
+
+        function displayDietPlan(dietPlan) {
+            const mealPlanOutput = document.getElementById("meal-plan-output");
+            if (!mealPlanOutput) {
+                alert("Meal plan output element not found!");
+                return;
+            }
+
+            mealPlanOutput.innerHTML = `<h3>Your Custom Diet Plan:</h3><p>${dietPlan}</p>`;
+        }
+    </script>
+</body>
+</html>
+
