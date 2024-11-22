@@ -1,7 +1,7 @@
 # Diet Plan & Recipe Generator Web App
 This web app generates personalized diet plans based on user preferences and health conditions. It also allows users to retrieve detailed recipes for dishes.
 
-##Instructions to Use
+## Instructions to Use
 Install Required Packages: Make sure you have Python installed, then run the following command to install the necessary packages:
 
 ```
