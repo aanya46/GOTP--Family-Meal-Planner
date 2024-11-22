@@ -4,8 +4,6 @@ This web app generates personalized diet plans based on user preferences and hea
 ##Instructions to Use
 Install Required Packages: Make sure you have Python installed, then run the following command to install the necessary packages:
 
-bash
-Copy code
 ```
 pip install Flask 
 pip install requests 
