@@ -22,8 +22,9 @@ To enable the app to retrieve detailed recipes and nutritional data, you need to
 ### Step 3: Add API Key to `app.py`  
 1. Open the `app.py` file in a text editor.  
 2. Locate the placeholder section for the API key (e.g., `GEMINI_API_KEY = "your_gemini_api_key_here"`).  
-3. Replace `"your_gemini_api_key_here"` with the API key you generated. It should look like this:  
-   ```python  
+3. Replace `"your_gemini_api_key_here"` with the API key you generated. It should look like this:
+  
+   ```bash  
    GEMINI_API_KEY = "your_actual_gemini_api_key"  
    ```
 4. Update GEMINI_MODEL_NAME and GEMINI_API_URL if wanted and as required.
